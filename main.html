@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovegood | Digital Garden</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <!-- 引入字体: Inter (主界面), Noto Serif SC (书评), KaiTi (中文楷体兜底) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. 自定义交互光标 -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">Lovegood Tang</div>
+        <div style="font-size: 1.0rem; color: #888; font-weight: 600;">LovegoodTang@gmail.com</div>
+    </nav>
+
+    <!-- 2. Hero Section (首屏 - 双列布局) -->
+    <section class="hero-section">
+        <!-- 左侧：文字 -->
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="word-1">Code.</span>
+                <span class="word-2" style="color: #444">Create.</span>
+                <span class="word-3" style="color: var(--accent)">Capture.</span>
+            </div>
+            <p class="hero-intro">
+                Logic meets Aesthetics.<br>
+                理性构建代码，感性记录瞬间。
+            </p>
+        </div>
+
+        <!-- 右侧：酷炫图表容器 -->
+        <div class="hero-chart-container" data-aos="fade-left" data-aos-delay="500">
+            <div id="skill-chart"></div>
+            <!-- 装饰背景光晕 -->
+            <div class="chart-glow"></div>
+        </div>
+    </section>
+
+    <!-- 3. Profile & Education (个人简介与学历) -->
+    <section class="profile-section">
+        <div class="profile-img-box" data-aos="fade-up">
+            <!-- 请替换为你的个人照片 -->
+            <img src="src/profile.jpg" alt="Profile">
+        </div>
+        <div class="profile-info">
+            <h2 class="section-title" style="padding-left:0; margin-bottom: 2rem;">Hello.</h2>
+            
+            <p style="color: var(--text-dim); margin-bottom: 3rem; line-height: 1.8; font-size: 1.2rem;">
+                我是 Lovegood Tang，一名全栈开发工程师和 AI 领域从业者。<br>
+                这里是我的“数字花园”，只是为了记录我所听到、看到、做到的一切。
+            </p>
+            
+            <h3 style="margin-bottom: 2rem; font-size: 1rem; letter-spacing: 2px; color:#666;">EDUCATION</h3>
+            
+            <div class="edu-container">
+                <!-- 学历 1 -->
+                <div class="edu-item gs_reveal">
+                    <div class="edu-card">
+                        <div class="school-logo">
+                            <img src="src/CUHK.jpg" alt="CUHK">
+                        </div>
+                        <div class="edu-details">
+                            <span class="edu-year">2026 - 2028</span>
+                            <div class="edu-degree">Master of Computer Science</div>
+                            <div class="edu-school">The Chinese University of Hong Kong</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学历 2 -->
+                <div class="edu-item gs_reveal">
+                    <div class="edu-card">
+                        <div class="school-logo">
+                            <img src="src/SHU.png" alt="SHU">
+                        </div>
+                        <div class="edu-details">
+                            <span class="edu-year">2022 - 2026</span>
+                            <div class="edu-degree">B.E. in Computer Science and Technology</div>
+                            <div class="edu-school">Shanghai University</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学历 3 -->
+                <div class="edu-item gs_reveal">
+                    <div class="edu-card">
+                        <div class="school-logo">
+                            <img src="src/JP.jpg" alt="JP">
+                        </div>
+                        <div class="edu-details">
+                            <span class="edu-year">2019 - 2022</span>
+                            <div class="edu-degree">JianPing High School</div>
+                            <div class="edu-school"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 5. Projects (横向滚动项目) -->
+    <div class="projects-container">
+        <div class="projects-wrapper">
+            <!-- 引导页 -->
+            <div class="project-slide">
+                <div style="text-align:center;">
+                    <h2 style="font-size: 4rem; font-weight:900;">HighLight<br>Work.</h2>
+                    <p style="margin-top:1rem; color:#666;">Scroll to see →</p>
+                </div>
+            </div>
+            <!-- 项目 1 Mindnlp-->
+            <div class="project-slide">
+                <div class="project-card">
+                    <div class="p-image"><img src="src/Mindspore.jpg" alt="Project 1"></div>
+                    <div class="p-info">
+                        <div class="p-tags"><span>Python/C++</span><span>Mindspore</span><span>NLP</span></div>
+                        <div class="p-tags"><span> </span></div>
+                        <h3>MindNLP</h3>
+                        <p style="color:#888; margin: 1rem 0;">一款对标Transformers库的nlp开发包</p>
+                        <p style="color:#888; margin: 1rem 0;">一款适配Mindspore以及华为AI训练推理生态的nlp库</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 项目 2 Wonder-->
+            <div class="project-slide">
+                <div class="project-card">
+                    <div class="p-image"><img src="src/Wonder.jpg" alt="Project 2"></div>
+                    <div class="p-info">
+                        <div class="p-tags"><span>Unreal Engine 5</span><span>LLM</span><span>C++</span></div>
+                        <div class="p-tags"><span> </span></div>
+                        <h3>Wonder</h3>
+                        <p style="color:#888; margin: 1rem 0;">一款LLM驱动的太空冒险RPG游戏</p>
+                        <p style="color:#888; margin: 1rem 0;">一次Mult-Agent协作的试验</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- 8. Hobbies (滚动文字带) -->
+    <section class="hobbies-section">
+        <div class="section-label">Personal Interests</div>
+        
+        <!-- 第一行：向左滚 -->
+        <div class="marquee">
+            <div class="marquee-content">
+                <span class="hobby-item hover-trigger">Hiking</span>
+                <span class="hobby-item hover-trigger">Coding</span>
+                <span class="hobby-item hover-trigger">Sci-Fi</span>
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">Photograph</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Sci-Fi</span>
+                <span class="hobby-item hover-trigger">Arsenal</span>
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Starcraft</span>
+                <span class="hobby-item hover-trigger">Football</span>
+            </div>
+            <!-- 复制一份用于无缝滚动 -->
+            <div class="marquee-content">
+                <span class="hobby-item hover-trigger">Hiking</span>
+                <span class="hobby-item hover-trigger">Coding</span>
+                <span class="hobby-item hover-trigger">Sci-Fi</span>
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">Photograph</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Sci-Fi</span>
+                <span class="hobby-item hover-trigger">Arsenal</span>
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Starcraft</span>
+                <span class="hobby-item hover-trigger">Football</span>
+            </div>
+        </div>
+
+        <!-- 第二行：向右滚 -->
+        <div class="marquee">
+            <div class="marquee-content reverse">
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">Coding</span>
+                <span class="hobby-item hover-trigger">F1</span>
+                <span class="hobby-item hover-trigger">Movies</span>
+                <span class="hobby-item hover-trigger">Apple</span>
+                <span class="hobby-item hover-trigger">Jazz</span>
+                <span class="hobby-item hover-trigger">Canon</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Movies</span>
+                <span class="hobby-item hover-trigger">Arsenal</span>
+                <span class="hobby-item hover-trigger">Jay Zhou</span>
+                <span class="hobby-item hover-trigger">Canon</span>
+                <span class="hobby-item hover-trigger">Hiking</span>
+            </div>
+            <div class="marquee-content reverse">
+                <span class="hobby-item hover-trigger">APEX</span>
+                <span class="hobby-item hover-trigger">Coding</span>
+                <span class="hobby-item hover-trigger">F1</span>
+                <span class="hobby-item hover-trigger">Movies</span>
+                <span class="hobby-item hover-trigger">Apple</span>
+                <span class="hobby-item hover-trigger">Jazz</span>
+                <span class="hobby-item hover-trigger">Canon</span>
+                <span class="hobby-item hover-trigger">RoadBike</span>
+                <span class="hobby-item hover-trigger">Movies</span>
+                <span class="hobby-item hover-trigger">Arsenal</span>
+                <span class="hobby-item hover-trigger">Jay Zhou</span>
+                <span class="hobby-item hover-trigger">Canon</span>
+                <span class="hobby-item hover-trigger">Hiking</span>
+            </div>
+        </div>
+    </section>
+    <!-- 6. The Arsenal (装备库) -->
+    <section class="gear-section">
+        <h2 class="section-title">The Arsenal.</h2>
+        <div class="gear-grid">
+            <div class="gear-card hover-trigger">
+                <img src="src/Action.png" alt="action">
+                <div class="gear-content">
+                    <h3 class="gear-title"> DJI Action 4 生日礼物版</h3>
+                    <p style="color:#888;"></p>
+                </div>
+            </div>
+            <div class="gear-card hover-trigger">
+                <img src="src/Canon.jpg" alt="Camera">
+                <div class="gear-content">
+                    <h3 class="gear-title">Canon EOS 70D</h3>
+                    <p style="color:#888;">EF 70-200mm f/2.8</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Curated (书影音 - 海报+宋体版) -->
+    <section class="curated-section">
+        <h2 class="section-title" style="padding-left:0">Curated.</h2>
+        <div class="curated-grid">
+            
+            <!-- Review 1 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="src/Newsroom.jpg" alt="Poster"></div>
+                    <div class="media-info">
+                        <h4>THE NEWSROOM</h4>
+                        <div class="rating">★★★★★</div>
+                        <span style="font-size:0.8rem; color:#666;">TV Serials / 2010</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    精英主义和理想主意的最好诠释，每次没动力了都会再去看一遍，问问自己：“你想活出怎样的人生？”
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=200&q=80" alt="Book"></div>
+                    <div class="media-info">
+                        <h4>Steve Jobs</h4>
+                        <div class="rating">★★★★☆</div>
+                        <span style="font-size:0.8rem; color:#666;">Book / Walter Isaacson</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    "过程就是奖励。"
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="src/strangerthings.jpg" alt="Poster"></div>
+                    <div class="media-info">
+                        <h4>Stranger Things</h4>
+                        <div class="rating">★★★★★</div>
+                        <span style="font-size:0.8rem; color:#666;">TV Serials / 2025</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    有没有懂Max的少年感的！
+                </div>
+            </div>
+            <!-- Review 4 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="src/HIMYM.png" alt="Poster"></div>
+                    <div class="media-info">
+                        <h4>How I Met Your Mother</h4>
+                        <div class="rating">★★★★☆</div>
+                        <span style="font-size:0.8rem; color:#666;">TV Serials / 2005</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    美式情景喜剧最高的山
+                </div>
+            </div>
+             <!-- Review 5 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="src/HP.jpg" alt="Poster"></div>
+                    <div class="media-info">
+                        <h4>Harry Potter</h4>
+                        <div class="rating">★★★★★</div>
+                        <span style="font-size:0.8rem; color:#666;">Movies Serials</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    这也是我Lovegood名字的由来，取自最喜欢的角色卢娜·洛夫古德，希望我也能像她一样永远精灵古怪。
+                </div>
+            </div>
+             <!-- Review 6 -->
+            <div class="review-card hover-trigger">
+                <div class="media-header">
+                    <div class="media-poster"><img src="src/DARK.jpg" alt="Poster"></div>
+                    <div class="media-info">
+                        <h4>DARK</h4>
+                        <div class="rating">★★★★☆</div>
+                        <span style="font-size:0.8rem; color:#666;">TV Serials</span>
+                    </div>
+                </div>
+                <div class="quote">
+                    衔尾蛇的永恒轮回，宗教意味的隐喻交织着悲剧理论、存在主义完美呈现了我心中的德式美学
+                    “我们所知的是沧海一粟，我们所不知的是汪洋大海”
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 4. Bucket List -->
+    <section class="bucket-section">
+        <h2 class="section-title">Before I Go.</h2>
+        <div class="bucket-list">
+            
+            <!-- 已完成 (Done) -->
+            <div class="bucket-item done">
+                <div class="b-content">
+                    <span class="b-num">01</span>
+                    <h3 class="b-text">深海潜水 (ydiving)</h3>
+                    <span class="b-date">COMPLETED 2025</span>
+                </div>
+                <div class="strike-line"></div> <!-- 划线动画 -->
+            </div>
+
+            <div class="bucket-item done">
+                <div class="b-content">
+                    <span class="b-num">02</span>
+                    <h3 class="b-text">独自旅行去一个陌生的国家</h3>
+                    <span class="b-date">COMPLETED 2022</span>
+                </div>
+                <div class="strike-line"></div>
+            </div>
+
+            <!-- 未完成 (Todo) -->
+            <div class="bucket-item todo hover-trigger">
+                <div class="b-content">
+                    <span class="b-num">03</span>
+                    <h3 class="b-text">登顶一座6000M级雪山</h3>
+                    <div class="b-status"><span class="dot"></span>PLANNING</div>
+                </div>
+            </div>
+
+            <div class="bucket-item todo hover-trigger">
+                <div class="b-content">
+                    <span class="b-num">04</span>
+                    <h3 class="b-text">开发一款用户量破万的 App</h3>
+                    <div class="b-status"><span class="dot"></span>IN PROGRESS</div>
+                </div>
+            </div>
+
+            <div class="bucket-item todo hover-trigger">
+                <div class="b-content">
+                    <span class="b-num">05</span>
+                    <h3 class="b-text">去酋长球场看一场球</h3>
+                    <div class="b-status"><span class="dot"></span>PLANNING</div>
+                </div>
+            </div>
+
+            <div class="bucket-item todo hover-trigger">
+                <div class="b-content">
+                    <span class="b-num">06</span>
+                    <h3 class="b-text">和心爱的人去北海道看雪</h3>
+                    <div class="b-status"><span class="dot"></span>WAITING</div>
+                </div>
+            </div>
+
+            <div class="bucket-item todo hover-trigger">
+                <div class="b-content">
+                    <span class="b-num">07</span>
+                    <h3 class="b-text">参加一场职业公路车比赛</h3>
+                    <div class="b-status"><span class="dot"></span>TRAINING</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 8. Gallery (自动横向胶卷) -->
+    <section class="gallery-section">
+        <div class="gallery-label">SHOT ON Canon & LEICA</div>
+        <div class="film-strip-container hover-trigger">
+            <div class="film-track">
+                <!-- 这里的图片高度固定，宽度自适应 -->
+                <img src="src/photo/1 (1).jpg" class="film-photo" alt="Photo 1">
+                <img src="src/photo/1 (2).jpg" class="film-photo" alt="Photo 2">
+                <img src="src/photo/1 (3).jpg" class="film-photo" alt="Photo 3">
+                <img src="src/photo/1 (4).jpg" class="film-photo" alt="Photo 4">
+                <img src="src/photo/1 (5).jpg" class="film-photo" alt="Photo 5">
+                <img src="src/photo/1 (6).jpg" class="film-photo" alt="Photo 6">
+                <img src="src/photo/1 (7).jpg" class="film-photo" alt="Photo 7">
+                <img src="src/photo/1 (8).jpg" class="film-photo" alt="Photo 8">
+                <img src="src/photo/1 (9).jpg" class="film-photo" alt="Photo 9">
+                <img src="src/photo/1 (10).jpg" class="film-photo" alt="Photo 10">
+
+
+                <!-- 复制一组图片以实现无缝循环 -->
+                <img src="src/photo/1 (1).jpg" class="film-photo" alt="Photo 1">
+                <img src="src/photo/1 (2).jpg" class="film-photo" alt="Photo 2">
+                <img src="src/photo/1 (3).jpg" class="film-photo" alt="Photo 3">
+                <img src="src/photo/1 (4).jpg" class="film-photo" alt="Photo 4">
+                <img src="src/photo/1 (5).jpg" class="film-photo" alt="Photo 5">
+                <img src="src/photo/1 (6).jpg" class="film-photo" alt="Photo 6">
+                <img src="src/photo/1 (7).jpg" class="film-photo" alt="Photo 7">
+                <img src="src/photo/1 (8).jpg" class="film-photo" alt="Photo 8">
+                <img src="src/photo/1 (9).jpg" class="film-photo" alt="Photo 9">
+                <img src="src/photo/1 (10).jpg" class="film-photo" alt="Photo 10">
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Designed & Coded by Lovegood.</p>
+    </footer>
+
+    <!-- 引入 GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // --- 1. 鼠标逻辑 ---
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.15, ease: 'power2.out' });
+            gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.05 });
+        });
+
+        // 悬停效果
+        const hoverTargets = document.querySelectorAll('a, .hover-trigger, .project-card, .film-photo, .bucket-item.todo, .hobby-item');
+
+        hoverTargets.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // --- 2. GSAP 动画初始化 ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero 文字入场
+        const tl = gsap.timeline();
+        tl.to(".word-1", { y: 0, opacity: 1, duration: 0.8, ease: "power4.out" })
+          .to(".word-2", { y: 0, opacity: 1, duration: 0.8, ease: "power4.out" }, "-=0.6")
+          .to(".word-3", { y: 0, opacity: 1, duration: 0.8, ease: "power4.out" }, "-=0.6")
+          .to(".hero-intro", { opacity: 1, duration: 1 }, "-=0.5");
+
+        // 通用标题渐入
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.to(title, {
+                opacity: 1, y: 0, duration: 1,
+                scrollTrigger: { trigger: title, start: "top 80%" }
+            });
+        });
+
+        // 学历逐条显示
+        gsap.utils.toArray('.gs_reveal').forEach(elem => {
+            gsap.from(elem, {
+                y: 30, opacity: 0, duration: 1, ease: "power2.out",
+                scrollTrigger: { trigger: elem, start: "top 90%" }
+            });
+        });
+
+        // --- 3. Bucket List 划线动画 ---
+        gsap.utils.toArray('.bucket-item.done').forEach(item => {
+            let line = item.querySelector('.strike-line');
+            gsap.to(line, {
+                width: '100%', // 动态拉长线条
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // --- 4. 项目横向滚动 (仅宽屏开启) ---
+        if (window.innerWidth > 768) {
+            const sections = gsap.utils.toArray(".project-slide");
+            gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".projects-container",
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / (sections.length - 1),
+                    end: () => "+=" + document.querySelector(".projects-container").offsetWidth
+                }
+            });
+        }
+        // --- 5. ECharts Skill Radar (技能雷达图) ---
+        function initChart() {
+            const chartDom = document.getElementById('skill-chart');
+            if(!chartDom) return;
+            
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                // 全局背景透明
+                backgroundColor: 'transparent',
+                
+                // 鼠标悬停提示
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(20, 20, 20, 0.8)',
+                    borderColor: '#333',
+                    textStyle: { color: '#fff' }
+                },
+                
+                radar: {
+                    // 雷达图指标
+                    indicator: [
+                        { name: 'Python', max: 100 },
+                        { name: 'PyTorch', max: 100 },
+                        { name: 'AI & LLM', max: 100 },
+                        { name: 'Algorithm', max: 100 },
+                        { name: 'DevOps', max: 100 },
+                        { name: 'CS Core', max: 100 }
+                    ],
+                    // 调整位置和大小
+                    center: ['50%', '50%'],
+                    radius: '65%',
+                    
+                    // 轴线样式 (深灰)
+                    axisName: {
+                        color: '#86868b', // 文字颜色
+                        fontSize: 14,
+                        fontFamily: 'Inter',
+                        fontWeight: '600',
+                        lineHeight: 18
+                    },
+                    axisLine: {
+                        lineStyle: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    splitLine: {
+                        lineStyle: { color: 'rgba(255, 255, 255, 0.05)' }
+                    },
+                    splitArea: { show: false } // 不显示背景网格块
+                },
+                
+                series: [{
+                    type: 'radar',
+                    symbol: 'circle', // 拐点样式
+                    symbolSize: 6,
+                    data: [
+                        {
+                            value: [95, 80, 105, 65, 70, 85], // 这里修改你的能力值 (0-100)
+                            name: 'Skill Stack',
+                            // 线条样式 (Apple Blue + 光晕)
+                            lineStyle: {
+                                width: 2,
+                                color: '#9997ff',
+                                shadowColor: 'rgba(41, 151, 255, 0.5)',
+                                shadowBlur: 10
+                            },
+                            // 填充样式 (渐变)
+                            areaStyle: {
+                                color: new echarts.graphic.RadialGradient(0.5, 0.5, 1, [
+                                    { offset: 0, color: 'rgba(41, 151, 255, 0.1)' },
+                                    { offset: 1, color: 'rgba(41, 151, 255, 0.6)' }
+                                ])
+                            },
+                            // 拐点颜色
+                            itemStyle: {
+                                color: '#fff',
+                                borderColor: '#2997ff',
+                                borderWidth: 2
+                            }
+                        }
+                    ],
+                    // 初始动画效果
+                    animationDuration: 2000,
+                    animationEasing: 'cubicOut'
+                }]
+            };
+
+            myChart.setOption(option);
+
+            // 响应窗口大小变化
+            window.addEventListener('resize', () => {
+                myChart.resize();
+            });
+            
+            // 增加一个悬停时的动态效果
+            myChart.on('mouseover', function () {
+                document.body.classList.add('hovering');
+            });
+            myChart.on('mouseout', function () {
+                document.body.classList.remove('hovering');
+            });
+        }
+
+        // 初始化图表
+        initChart();
+    </script>
+</body>
+</html>

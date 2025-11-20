@@ -1,0 +1,443 @@
+/* =========================================
+   1. 基础设置 & 变量
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Noto+Serif+SC:wght@500;700&display=swap');
+
+:root {
+    --bg: #080b10;            /* 深黑背景 */
+    --card-bg: #151516;       /* 卡片深灰 */
+    --text: #f5f5f7;          /* 主要文字白 */
+    --text-dim: #f7f6e25d;      /* 次要文字灰 */
+    --accent: #c1d7e9;        /* 强调色：蓝 */
+    --accent-gold: #d4af37;   /* 强调色：金 (评分/遗愿清单) */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none !important; 
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+img { width: 100%; height: 100%; object-fit: cover; display: block; }
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+
+/* =========================================
+   2. 自定义光标
+   ========================================= */
+.cursor {
+    width: 20px; height: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background-color 0.3s;
+}
+.cursor-dot {
+    width: 4px; height: 4px; background: white; border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+/* 悬停放大效果 */
+body.hovering .cursor {
+    transform: translate(-50%, -50%) scale(2.5);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+}
+
+/* =========================================
+   3. 导航栏
+   ========================================= */
+nav {
+    position: fixed; top: 0; width: 100%; padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center; z-index: 100;
+    mix-blend-mode: exclusion;
+}
+.logo { font-weight: 900; letter-spacing: -1px; font-size: 1.2rem; }
+
+/* 通用标题 */
+.section-title {
+    font-size: 3.5rem; font-weight: 700; margin-bottom: 4rem;
+    padding-left: 10%; opacity: 0; transform: translateY(30px);
+}
+
+/* =========================================
+   4. Hero Section (更新为左右布局)
+   ========================================= */
+.hero-section {
+    min-height: 100vh;
+    /* 改为 Grid 布局：左宽右窄 */
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    padding: 0 8%; /* 左右留白 */
+    position: relative;
+    overflow: hidden; /* 防止光晕溢出 */
+}
+
+.hero-content {
+    z-index: 2; /* 保证文字在最上层 */
+}
+
+.hero-text {
+    font-size: 7vw; /* 稍微调小一点适配双列 */
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+}
+
+.hero-text span {
+    display: block;
+    opacity: 0;
+    transform: translateY(100px);
+}
+
+.hero-intro {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    max-width: 500px;
+    opacity: 0;
+}
+
+/* --- 右侧图表区域 --- */
+.hero-chart-container {
+    width: 100%;
+    height: 600px; /* 图表高度 */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+#skill-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* 装饰用的背景光晕 (氛围感) */
+.chart-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(41, 151, 255, 0.15) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+    animation: glow-breath 5s infinite alternate;
+}
+
+@keyframes glow-breath {
+    from { transform: scale(0.8); opacity: 0.5; }
+    to { transform: scale(1.2); opacity: 1; }
+}
+
+/* --- 移动端适配 (变为单列) --- */
+@media (max-width: 992px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 100px;
+        gap: 2rem;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-text { font-size: 14vw; }
+    
+    /* 手机上把图表放小一点，或者隐藏 */
+    .hero-chart-container {
+        height: 400px;
+        order: -1; /* 让图表跑到文字上面 (可选) */
+        margin-top: 20px;
+    }
+    
+    .chart-glow { width: 250px; height: 250px; }
+}
+
+/* =========================================
+   5. Profile & Education (Updated)
+   ========================================= */
+.profile-section {
+    padding: 10rem 10%;
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start;
+}
+.profile-img-box {
+    position: relative; height: 600px; border-radius: 4px; overflow: hidden;
+}
+.profile-img-box img { filter: grayscale(50%); transition: 0.5s; }
+.profile-img-box:hover img { filter: grayscale(0%); transform: scale(1.05); }
+
+/* 学历布局 */
+.edu-container { margin-top: 2rem; }
+
+.edu-item {
+    margin-bottom: 3.5rem; position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.1); padding-left: 2rem;
+}
+.edu-item::before {
+    content: ''; position: absolute; left: -3px; top: 24px;
+    width: 5px; height: 5px; background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+}
+
+.edu-card { display: flex; align-items: flex-start; gap: 1.5rem; }
+
+/* 学校图标 */
+.school-logo {
+    width: 56px; height: 56px; flex-shrink: 0;
+    background: #fff; /* 白色背景确保校徽清晰 */
+    border-radius: 12px; padding: 3px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(163, 155, 224, 0.3);
+}
+.school-logo img { object-fit: contain; }
+
+.edu-details { flex: 1; }
+.edu-year { font-size: 1rem; font-family: monospace; color: var(--accent); margin-bottom: 0.3rem; display: block; }
+.edu-degree { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text); line-height: 1.3; }
+.edu-school { font-size: 1rem; color: var(--text-dim); }
+
+/* =========================================
+   6. Bucket List (遗愿清单)
+   ========================================= */
+.bucket-section {
+    padding: 5rem 10%; background: var(--bg);
+}
+.bucket-list {
+    display: flex; flex-direction: column; border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bucket-item {
+    position: relative; padding: 2rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.4s; overflow: hidden;
+}
+
+.bucket-item .b-content {
+    display: flex; align-items: baseline; gap: 2rem; position: relative; z-index: 2;
+}
+.b-num { font-family: monospace; color: var(--text-dim); font-size: 0.9rem; }
+.b-text { font-size: 1.8rem; font-weight: 600; flex: 1; transition: 0.3s; }
+
+/* Completed Styling */
+.bucket-item.done .b-text { color: #555; }
+.bucket-item.done .b-date { font-size: 0.8rem; color: var(--accent); font-family: monospace; letter-spacing: 1px; }
+
+/* Strike Line Animation */
+.strike-line {
+    position: absolute; top: 50%; left: 0; height: 2px;
+    background-color: var(--accent-gold); width: 0; /* JS控制 */
+    z-index: 3; box-shadow: 0 0 10px var(--accent-gold); transform: translateY(-50%);
+}
+
+/* Todo Styling */
+.bucket-item.todo { cursor: pointer; }
+.bucket-item.todo:hover { background: rgba(255, 255, 255, 0.03); padding-left: 1rem; }
+.bucket-item.todo:hover .b-text { color: var(--accent); }
+
+.b-status {
+    font-size: 0.7rem; border: 1px solid #333; padding: 4px 10px;
+    border-radius: 20px; display: flex; align-items: center; gap: 6px; color: #ccc;
+}
+.dot {
+    width: 6px; height: 6px; background-color: #22c55e; border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { opacity: 0.5; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* =========================================
+   7. Projects (Horizontal Scroll)
+   ========================================= */
+.projects-container { overflow: hidden; margin: 5rem 0; }
+.projects-wrapper { width: 300%; height: 100vh; display: flex; flex-wrap: nowrap; }
+.project-slide {
+    width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.05); background: var(--bg);
+}
+.project-card { display: flex; align-items: center; gap: 4rem; max-width: 1200px; width: 85%; }
+.p-image { width: 600px; height: 400px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.p-info h3 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.1; }
+.p-tags span { font-size: 0.8rem; border: 1px solid #333; padding: 5px 12px; border-radius: 20px; margin-right: 8px; color: #888; }
+
+/* =========================================
+   8. The Arsenal (Gear Grid)
+   ========================================= */
+.gear-section { padding: 5rem 5%; }
+.gear-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.gear-card {
+    position: relative; height: 70vh; border-radius: 20px; overflow: hidden; background: #111;
+}
+.gear-content {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 2.5rem;
+    background: linear-gradient(to top, black, transparent);
+}
+.gear-title { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+
+/* =========================================
+   9. Curated (Books & Movies)
+   ========================================= */
+.curated-section { padding: 8rem 10%; }
+.curated-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.review-card {
+    background: var(--card-bg); padding: 2rem; border-radius: 20px;
+    display: flex; flex-direction: column; gap: 1.5rem; transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.review-card:hover { transform: translateY(-10px); border-color: rgba(255,255,255,0.2); }
+
+.media-header { display: flex; gap: 1.5rem; }
+.media-poster { width: 80px; height: 120px; border-radius: 8px; background: #333; flex-shrink: 0; overflow: hidden; }
+.media-info h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+.rating { color: var(--accent-gold); font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+/* 宋体评价 */
+.quote {
+    font-family: 'Noto Serif SC', serif; font-size: 1rem; color: #ccc; line-height: 1.6;
+    font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;
+}
+
+/* =========================================
+   10. Gallery (Film Strip)
+   ========================================= */
+.gallery-section { padding: 5rem 0; background: #000; overflow: hidden; }
+.gallery-label { text-align: center; color: #666; margin-bottom: 2rem; letter-spacing: 3px; font-size: 0.8rem; }
+.film-strip-container { width: 100%; display: flex; overflow: hidden; position: relative; }
+.film-track {
+    display: flex; gap: 20px; width: max-content;
+    animation: scroll-left 40s linear infinite;
+}
+.film-track:hover { animation-play-state: paused; }
+.film-photo {
+    height: 500px; width: auto; flex-shrink: 0; border-radius: 4px;
+    filter: brightness(0.7); transition: 0.4s; cursor: pointer;
+}
+.film-photo:hover { filter: brightness(1.1); transform: scale(1.02); }
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* =========================================
+   11. Footer & Mobile
+   ========================================= */
+footer { padding: 5rem 0; text-align: center; color: #444; font-size: 0.9rem; border-top: 1px solid #111; }
+
+@media (max-width: 768px) {
+    .hero-text { font-size: 14vw; }
+    .section-title { font-size: 2.5rem; padding-left: 0; }
+    .profile-section { grid-template-columns: 1fr; padding: 5rem 5%; gap: 3rem; }
+    .profile-img-box { height: 400px; }
+    .edu-card { gap: 1rem; } .school-logo { width: 48px; height: 48px; padding: 6px; } .edu-degree { font-size: 1.1rem; }
+    
+    .bucket-item .b-content { flex-direction: column; gap: 0.5rem; }
+    .b-text { font-size: 1.4rem; }
+    
+    .projects-wrapper { display: block; width: 100%; height: auto; }
+    .project-slide { width: 100%; height: auto; padding: 4rem 5%; border-right: none; border-bottom: 1px solid #222; }
+    .project-card { flex-direction: column; gap: 2rem; width: 100%; }
+    .p-image { width: 100%; height: 250px; }
+    
+    .gear-grid { grid-template-columns: 1fr; } .gear-card { height: 50vh; }
+    .film-photo { height: 300px; }
+    .cursor, .cursor-dot { display: none; } * { cursor: auto; }
+}
+.hobbies-section {
+    padding: 8rem 0;
+    background: var(--bg);
+    overflow: hidden; /* 必须隐藏溢出，否则会出现横向滚动条 */
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.section-label {
+    text-align: center;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none; /* 防止选中文本 */
+    margin-bottom: 2rem;
+    gap: 2rem; /* 两个滚动块之间的间隙 */
+}
+
+.marquee-content {
+    flex-shrink: 0;
+    display: flex;
+    gap: 2rem;
+    min-width: 100%;
+    /* 核心动画：20秒匀速无限循环 */
+    animation: marquee-scroll 20s linear infinite;
+}
+
+/* 反向滚动样式 */
+.marquee-content.reverse {
+    animation-direction: reverse;
+}
+
+/* 单个文字项样式 */
+.hobby-item {
+    font-size: 6rem; /* 超大字体 */
+    font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
+    /* 镂空字体效果 */
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); 
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* 悬停交互：变实心 + 倾斜 */
+.hobby-item:hover {
+    color: var(--text); /* 变白色 */
+    -webkit-text-stroke: 1px var(--text);
+    transform: skewX(-10deg); /* 稍微倾斜，增加速度感 */
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+/* 定义滚动动画关键帧 */
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* 向左移动100%自身的宽度 */
+        transform: translateX(-100%);
+    }
+}
+
+/* 移动端适配：字体调小 */
+@media (max-width: 768px) {
+    .hobby-item {
+        font-size: 3.5rem;
+    }
+    .marquee {
+        gap: 1rem;
+    }
+    .marquee-content {
+        gap: 1rem;
+        animation-duration: 15s; /* 手机上稍微快一点 */
+    }
+}

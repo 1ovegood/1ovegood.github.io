@@ -22,7 +22,7 @@
   <br>
 
   <!-- 核心动作：访问按钮 -->
-  <a href="www.lovegoodtang.site">
+  <a href="(http://123.207.217.118/)">
     <img src="https://img.shields.io/badge/Visit_Website_→-000000?style=for-the-badge&logo=github&logoColor=white" height="40" alt="Visit Website">
   </a>
 

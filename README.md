@@ -22,9 +22,9 @@
   <br>
 
   <!-- 核心动作：访问按钮 -->
-  <a href="(http://123.207.217.118/)">
+<a href="http://123.207.217.118/" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/badge/Visit_Website_→-000000?style=for-the-badge&logo=github&logoColor=white" height="40" alt="Visit Website">
-  </a>
+</a>
 
   <br><br>
 

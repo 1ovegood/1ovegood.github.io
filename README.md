@@ -1,7 +1,7 @@
 <div align="center">
 
   <!-- 顶部 Logo 或 标题 -->
-  <h1 style="font-size: 3rem; font-weight: 900;">LOVEGOOD</h1>
+  <h1 style="font-size: 3rem; font-weight: 900;">LOVEGOOD 个人主页</h1>
 
   <!-- 动态徽章 (装饰用，可保留可删除) -->
   <img src="https://img.shields.io/badge/EST-2025-black?style=for-the-badge&logo=apple&logoColor=white" alt="Time">
